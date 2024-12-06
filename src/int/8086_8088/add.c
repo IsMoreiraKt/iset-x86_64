@@ -17,7 +17,7 @@
  *   The first_argument is modified in place to hold the sum of the two operands.
  */
 void ADD(
-    unsigned short first_argument, 
+    unsigned short *first_argument, 
     unsigned short second_argument
 ) {
     unsigned short sum = 0;
@@ -25,7 +25,7 @@ void ADD(
 
     // Loop through each bit (0 to 15) of the operands
     for (unsigned short i = 0; i <= 16; i++) {
-        unsigned short x_bit = AND((first_argument >> i), 1);  // Get the i-th bit of the first operand
+        unsigned short x_bit = AND((*first_argument >> i), 1);  // Get the i-th bit of the first operand
         unsigned short y_bit = AND((second_argument >> i), 1); // Get the i-th bit of the second operand
         unsigned short sum_bit = XOR(XOR(x_bit, y_bit), carry); // Calculate the sum bit
 
@@ -37,7 +37,7 @@ void ADD(
     }
 
     // Store the result of the addition in the first_argument
-    first_argument = sum;
+    *first_argument = sum;
 }
 
 
@@ -55,7 +55,7 @@ void ADD(
  *   The first_argument is modified in place to hold the sum of the two operands.
  */
 void ADDL(
-    unsigned int first_argument, 
+    unsigned int *first_argument, 
     unsigned int second_argument
 ) {
     unsigned int sum = 0;
@@ -63,7 +63,7 @@ void ADDL(
 
     // Loop through each bit (0 to 31) of the operands
     for (unsigned int i = 0; i <= 32; i++) {
-        unsigned int x_bit = AND((first_argument >> i), 1);  // Get the i-th bit of the first operand
+        unsigned int x_bit = AND((*first_argument >> i), 1);  // Get the i-th bit of the first operand
         unsigned int y_bit = AND((second_argument >> i), 1); // Get the i-th bit of the second operand
         unsigned int sum_bit = XOR(XOR(x_bit, y_bit), carry); // Calculate the sum bit
 
@@ -75,5 +75,5 @@ void ADDL(
     }
 
     // Store the result of the addition in the first_argument
-    first_argument = sum;
+    *first_argument = sum;
 }

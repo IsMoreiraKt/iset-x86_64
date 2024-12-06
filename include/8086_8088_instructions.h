@@ -16,7 +16,7 @@
  *   The first_argument is modified in place to hold the sum of the two operands.
  */
 void ADD(
-    unsigned short first_argument, 
+    unsigned short *first_argument, 
     unsigned short second_agument
 );
 
@@ -35,7 +35,7 @@ void ADD(
  *   The first_argument is modified in place to hold the sum of the two operands.
  */
 void ADDL(
-    unsigned int first_argument, 
+    unsigned int *first_argument, 
     unsigned int second_agument
 );
 
