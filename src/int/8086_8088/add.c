@@ -17,7 +17,7 @@ void ADDBS(
     char *second_argument
 ) {
     unsigned char mask = 0xF;
-    unsigned char carry = CARRY_FLAG;
+    unsigned char carry = 0;
     char sum = 0;
 
     for (char shift = 0; shift < 8; shift += 4) {
@@ -52,7 +52,7 @@ void ADDBU(
     unsigned char *second_argument
 ) {
     unsigned char mask = 0xF;
-    unsigned char carry = CARRY_FLAG;
+    unsigned char carry = 0;
     unsigned char sum = 0;
 
     for (unsigned char shift = 0; shift < 8; shift += 4) {
@@ -83,7 +83,7 @@ void ADDWS(
     short *second_argument
 ) {
     unsigned short mask = 0xFF;
-    unsigned char carry = CARRY_FLAG;
+    unsigned char carry = 0;
     short sum = 0;
 
     for (short shift = 0; shift < 16; shift += 8) {
@@ -118,7 +118,7 @@ void ADDWU(
     unsigned short *second_argument
 ) {
     unsigned short mask = 0xFF;
-    unsigned char carry = CARRY_FLAG;
+    unsigned char carry = 0;
     unsigned short sum = 0;
 
     for (unsigned short shift = 0; shift < 16; shift += 8) {
@@ -149,7 +149,7 @@ void ADDLS(
     int *second_argument
 ) {
     unsigned int mask = 0xFFFF;
-    unsigned char carry = CARRY_FLAG;
+    unsigned char carry = 0;
     int sum = 0;
 
     for (int shift = 0; shift < 32; shift += 16) {
@@ -184,7 +184,7 @@ void ADDLU(
     unsigned int *second_argument
 ) {
     unsigned int mask = 0xFFFF;
-    unsigned char carry = CARRY_FLAG;
+    unsigned char carry = 0;
     unsigned int sum = 0;
 
     for (unsigned int shift = 0; shift < 32; shift += 16) {
@@ -215,7 +215,7 @@ void ADDQS(
     long *second_argument
 ) {
     unsigned long mask = 0xFFFF;
-    unsigned char carry = CARRY_FLAG;
+    unsigned char carry = 0;
     long sum = 0;
 
     for (long shift = 0; shift < 64; shift += 16) {
@@ -250,7 +250,7 @@ void ADDQU(
     unsigned long *second_argument
 ) {
     unsigned long mask = 0xFFFF;
-    unsigned char carry = CARRY_FLAG;
+    unsigned char carry = 0;
     unsigned long sum = 0;
 
     for (unsigned long shift = 0; shift < 64; shift += 16) {
