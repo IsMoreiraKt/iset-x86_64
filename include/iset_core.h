@@ -4,6 +4,15 @@
 
 
 /*
+ * CARRY_FLAG:
+ * Global variable that stores the carry flag state during arithmetic operations.
+ * A value of 1 indicates that a carry occurred, and 0 indicates no carry.
+ */
+extern unsigned char CARRY_FLAG;
+
+
+
+/*
  * XOR Function:
  * Performs the "Exclusive OR" logical operation between two operands.
  * Returns 1 if the bits are different, and 0 if they are the same.
