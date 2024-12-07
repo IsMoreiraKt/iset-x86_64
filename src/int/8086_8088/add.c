@@ -4,74 +4,112 @@
 
 
 /*
- * ADD Function:
- * Performs a bitwise addition of two unsigned short values.
- * This function simulates the addition of two 16-bit numbers, considering carry at each bit.
+ * ADDB Function:
+ * Performs a bitwise addition of two 8-bit signed values.
+ * This function simulates the addition of two 8-bit numbers, considering carry at each bit.
  * 
  * Parameters:
- * - first_argument: The first operand (unsigned short, 16-bit).
- * - second_argument: The second operand (unsigned short, 16-bit).
- * 
- * Return:
- * - The result of the addition, stored in the first_argument.
- *   The first_argument is modified in place to hold the sum of the two operands.
+ * - first_argument: The first operand (char, 8-bit).
+ * - second_argument: A pointer to the second operand (char, 8-bit).
  */
-void ADD(
-    unsigned short *first_argument, 
-    unsigned short second_argument
+void ADDB(
+    char first_argument, 
+    char *second_argument
 ) {
-    unsigned short sum = 0;
+    unsigned char sum = 0;
 
-    // Loop through each bit (0 to 15) of the operands
-    for (unsigned short i = 0; i <= 16; i++) {
-        unsigned short x_bit = AND((*first_argument >> i), 1);  // Get the i-th bit of the first operand
-        unsigned short y_bit = AND((second_argument >> i), 1); // Get the i-th bit of the second operand
-        unsigned short sum_bit = XOR(XOR(x_bit, y_bit), CARRY_FLAG); // Calculate the sum bit
+    for (unsigned int i = 0; i < 8; i++) {
+        unsigned char x_bit = AND((first_argument >> i), 1);
+        unsigned char y_bit = AND((*second_argument >> i), 1);
+        unsigned char sum_bit = XOR(XOR(x_bit, y_bit), CARRY_FLAG);
 
-        // Calculate the carry for the next iteration (if any)
         CARRY_FLAG = OR(AND(x_bit, y_bit), AND(CARRY_FLAG, XOR(x_bit, y_bit)));
-
-        // Combine the sum bit into the final sum
         sum |= (sum_bit << i);
     }
 
-    // Store the result of the addition in the first_argument
-    *first_argument = sum;
+    *second_argument = sum;
+}
+
+
+/*
+ * ADDW Function:
+ * Performs a bitwise addition of two 16-bit signed values.
+ * This function simulates the addition of two 16-bit numbers, considering carry at each bit.
+ * 
+ * Parameters:
+ * - first_argument: The first operand (short, 16-bit).
+ * - second_argument: A pointer to the second operand (short, 16-bit).
+ */
+void ADDW(
+    short first_argument, 
+    short *second_argument
+) {
+    unsigned short sum = 0;
+
+    for (unsigned int i = 0; i < 16; i++) {
+        unsigned short x_bit = AND((first_argument >> i), 1);
+        unsigned short y_bit = AND((*second_argument >> i), 1);
+        unsigned short sum_bit = XOR(XOR(x_bit, y_bit), CARRY_FLAG);
+
+        CARRY_FLAG = OR(AND(x_bit, y_bit), AND(CARRY_FLAG, XOR(x_bit, y_bit)));
+        sum |= (sum_bit << i);
+    }
+
+    *second_argument = sum;
 }
 
 
 /*
  * ADDL Function:
- * Performs a bitwise addition of two unsigned int values.
+ * Performs a bitwise addition of two 32-bit signed values.
  * This function simulates the addition of two 32-bit numbers, considering carry at each bit.
  * 
  * Parameters:
- * - first_argument: The first operand (unsigned int, 32-bit).
- * - second_argument: The second operand (unsigned int, 32-bit).
- * 
- * Return:
- * - The result of the addition, stored in the first_argument.
- *   The first_argument is modified in place to hold the sum of the two operands.
+ * - first_argument: The first operand (int, 32-bit).
+ * - second_argument: A pointer to the second operand (int, 32-bit).
  */
 void ADDL(
-    unsigned int *first_argument, 
-    unsigned int second_argument
+    int first_argument, 
+    int *second_argument
 ) {
     unsigned int sum = 0;
 
-    // Loop through each bit (0 to 31) of the operands
-    for (unsigned int i = 0; i <= 32; i++) {
-        unsigned int x_bit = AND((*first_argument >> i), 1);  // Get the i-th bit of the first operand
-        unsigned int y_bit = AND((second_argument >> i), 1); // Get the i-th bit of the second operand
-        unsigned int sum_bit = XOR(XOR(x_bit, y_bit), CARRY_FLAG); // Calculate the sum bit
+    for (unsigned int i = 0; i < 32; i++) {
+        unsigned int x_bit = AND((first_argument >> i), 1);
+        unsigned int y_bit = AND((*second_argument >> i), 1);
+        unsigned int sum_bit = XOR(XOR(x_bit, y_bit), CARRY_FLAG);
 
-        // Calculate the carry for the next iteration (if any)
         CARRY_FLAG = OR(AND(x_bit, y_bit), AND(CARRY_FLAG, XOR(x_bit, y_bit)));
-
-        // Combine the sum bit into the final sum
         sum |= (sum_bit << i);
     }
 
-    // Store the result of the addition in the first_argument
-    *first_argument = sum;
+    *second_argument = sum;
+}
+
+
+/*
+ * ADDQ Function:
+ * Performs a bitwise addition of two 64-bit signed values.
+ * This function simulates the addition of two 64-bit numbers, considering carry at each bit.
+ * 
+ * Parameters:
+ * - first_argument: The first operand (long, 64-bit).
+ * - second_argument: A pointer to the second operand (long, 64-bit).
+ */
+void ADDQ(
+    long first_argument, 
+    long *second_argument
+) {
+    unsigned long sum = 0;
+
+    for (unsigned int i = 0; i < 64; i++) {
+        unsigned long x_bit = AND((first_argument >> i), 1);
+        unsigned long y_bit = AND((*second_argument >> i), 1);
+        unsigned long sum_bit = XOR(XOR(x_bit, y_bit), CARRY_FLAG);
+
+        CARRY_FLAG = OR(AND(x_bit, y_bit), AND(CARRY_FLAG, XOR(x_bit, y_bit)));
+        sum |= (sum_bit << i);
+    }
+
+    *second_argument = sum;
 }
