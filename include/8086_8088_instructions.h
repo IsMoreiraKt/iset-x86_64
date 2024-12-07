@@ -2,6 +2,7 @@
 #define ISET_8086_8088_INSTRUCTIONS_H
 
 
+
 /*
  * ADD Function:
  * Performs a bitwise addition of two unsigned short values.
@@ -35,6 +36,42 @@ void ADD(
  *   The first_argument is modified in place to hold the sum of the two operands.
  */
 void ADDL(
+    unsigned int *first_argument, 
+    unsigned int second_agument
+);
+
+
+/*
+ * ADDC:
+ * Performs addition with carry (including carry flag) for two 16-bit numbers.
+ * The function adds the value of "second_argument" to "first_argument" and includes the carry state (CARRY_FLAG).
+ * After the addition, the carry flag is updated based on the result.
+ * 
+ * Parameters:
+ * - first_argument: Pointer to the first operand (16-bit number) that will be updated with the result of the addition.
+ * - second_argument: The second operand (16-bit number) to be added to the first.
+ * 
+ * The global variable CARRY_FLAG is used to track the carry status during the operation.
+ */
+void ADDC(
+    unsigned short *first_argument, 
+    unsigned short second_agument
+);
+
+
+/*
+ * ADDCL:
+ * Performs addition with carry (including carry flag) for two 32-bit numbers.
+ * The function adds the value of "second_argument" to "first_argument" and includes the carry state (CARRY_FLAG).
+ * After the addition, the carry flag is updated based on the result.
+ * 
+ * Parameters:
+ * - first_argument: Pointer to the first operand (32-bit number) that will be updated with the result of the addition.
+ * - second_argument: The second operand (32-bit number) to be added to the first.
+ * 
+ * The global variable CARRY_FLAG is used to track the carry status during the operation.
+ */
+void ADDCL(
     unsigned int *first_argument, 
     unsigned int second_agument
 );
