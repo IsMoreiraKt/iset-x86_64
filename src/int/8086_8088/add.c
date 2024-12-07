@@ -20,17 +20,17 @@ void ADDBS(
     unsigned char carry = CARRY_FLAG;
     char sum = 0;
 
-    for (unsigned char shift = 0; shift < 8; shift += 4) {
-        unsigned char x_block = (first_argument >> shift) & mask;
-        unsigned char y_block = (*second_argument >> shift) & mask;
-        unsigned char block_sum = (x_block ^ y_block ^ carry);
+    for (char shift = 0; shift < 8; shift += 4) {
+        unsigned char x_block = AND((first_argument >> shift), mask);
+        unsigned char y_block = AND((*second_argument >> shift), mask);
+        unsigned char block_sum = AND(AND(x_block, y_block), carry);
 
-        carry = ((x_block & y_block) | (carry & (x_block ^ y_block)));
-        sum |= (block_sum & mask) << shift;
+        carry = OR(AND(x_block, y_block), AND(carry, OR(x_block, y_block)));
+        sum = OR(AND(block_sum, mask) << shift, sum);
     }
 
-    if ((sum & 0x80) != 0) {
-        sum |= ~0x7F;
+    if (AND(sum, 0x80) != 0) {
+        sum = OR(NOT(0x7F), sum);
     }
 
     *second_argument = sum;
@@ -56,12 +56,12 @@ void ADDBU(
     unsigned char sum = 0;
 
     for (unsigned char shift = 0; shift < 8; shift += 4) {
-        unsigned char x_block = (first_argument >> shift) & mask;
-        unsigned char y_block = (*second_argument >> shift) & mask;
-        unsigned char block_sum = (x_block ^ y_block ^ carry);
+        unsigned char x_block = AND((first_argument >> shift), mask);
+        unsigned char y_block = AND((*second_argument >> shift), mask);
+        unsigned char block_sum = AND(AND(x_block, y_block), carry);
 
-        carry = ((x_block & y_block) | (carry & (x_block ^ y_block)));
-        sum |= (block_sum & mask) << shift;
+        carry = OR(AND(x_block, y_block), AND(carry, OR(x_block, y_block)));
+        sum = OR(AND(block_sum, mask) << shift, sum);
     }
 
     *second_argument = sum;
@@ -86,17 +86,17 @@ void ADDWS(
     unsigned char carry = CARRY_FLAG;
     short sum = 0;
 
-    for (unsigned short shift = 0; shift < 16; shift += 8) {
-        unsigned short x_block = (first_argument >> shift) & mask;
-        unsigned short y_block = (*second_argument >> shift) & mask;
-        unsigned short block_sum = (x_block ^ y_block ^ carry);
+    for (short shift = 0; shift < 16; shift += 8) {
+        unsigned short x_block = AND((first_argument >> shift), mask);
+        unsigned short y_block = AND((*second_argument >> shift), mask);
+        unsigned short block_sum = AND(AND(x_block, y_block), carry);
 
-        carry = ((x_block & y_block) | (carry & (x_block ^ y_block)));
-        sum |= (block_sum & mask) << shift;
+        carry = OR(AND(x_block, y_block), AND(carry, OR(x_block, y_block)));
+        sum = OR(AND(block_sum, mask) << shift, sum);
     }
 
-    if ((sum & 0x8000) != 0) {
-        sum |= ~0x7FFF;
+    if (AND(sum, 0x8000) != 0) {
+        sum = OR(NOT(0x7FFF), sum);
     }
 
     *second_argument = sum;
@@ -122,12 +122,12 @@ void ADDWU(
     unsigned short sum = 0;
 
     for (unsigned short shift = 0; shift < 16; shift += 8) {
-        unsigned short x_block = (first_argument >> shift) & mask;
-        unsigned short y_block = (*second_argument >> shift) & mask;
-        unsigned short block_sum = (x_block ^ y_block ^ carry);
+        unsigned short x_block = AND((first_argument >> shift), mask);
+        unsigned short y_block = AND((*second_argument >> shift), mask);
+        unsigned short block_sum = AND(AND(x_block, y_block), carry);
 
-        carry = ((x_block & y_block) | (carry & (x_block ^ y_block)));
-        sum |= (block_sum & mask) << shift;
+        carry = OR(AND(x_block, y_block), AND(carry, OR(x_block, y_block)));
+        sum = OR(AND(block_sum, mask) << shift, sum);
     }
 
     *second_argument = sum;
@@ -152,17 +152,17 @@ void ADDLS(
     unsigned char carry = CARRY_FLAG;
     int sum = 0;
 
-    for (unsigned char shift = 0; shift < 32; shift += 16) {
-        unsigned int x_block = (first_argument >> shift) & mask;
-        unsigned int y_block = (*second_argument >> shift) & mask;
-        unsigned int block_sum = (x_block ^ y_block ^ carry);
+    for (int shift = 0; shift < 32; shift += 16) {
+        unsigned int x_block = AND((first_argument >> shift), mask);
+        unsigned int y_block = AND((*second_argument >> shift), mask);
+        unsigned int block_sum = AND(AND(x_block, y_block), carry);
 
-        carry = ((x_block & y_block) | (carry & (x_block ^ y_block)));
-        sum |= (block_sum & mask) << shift;
+        carry = OR(AND(x_block, y_block), AND(carry, OR(x_block, y_block)));
+        sum = OR(AND(block_sum, mask) << shift, sum);
     }
 
-    if ((sum & 0x80000000) != 0) {
-        sum |= ~0x7FFFFFFF;
+    if (AND(sum, 0x80000000) != 0) {
+        sum = OR(NOT(0x7FFFFFFF), sum);
     }
 
     *second_argument = sum;
@@ -187,13 +187,13 @@ void ADDLU(
     unsigned char carry = CARRY_FLAG;
     unsigned int sum = 0;
 
-    for (unsigned char shift = 0; shift < 32; shift += 16) {
-        unsigned int x_block = (first_argument >> shift) & mask;
-        unsigned int y_block = (*second_argument >> shift) & mask;
-        unsigned int block_sum = (x_block ^ y_block ^ carry);
+    for (unsigned int shift = 0; shift < 32; shift += 16) {
+        unsigned int x_block = AND((first_argument >> shift), mask);
+        unsigned int y_block = AND((*second_argument >> shift), mask);
+        unsigned int block_sum = AND(AND(x_block, y_block), carry);
 
-        carry = ((x_block & y_block) | (carry & (x_block ^ y_block)));
-        sum |= (block_sum & mask) << shift;
+        carry = OR(AND(x_block, y_block), AND(carry, OR(x_block, y_block)));
+        sum = OR(AND(block_sum, mask) << shift, sum);
     }
 
     *second_argument = sum;
@@ -218,17 +218,17 @@ void ADDQS(
     unsigned char carry = CARRY_FLAG;
     long sum = 0;
 
-    for (unsigned char shift = 0; shift < 64; shift += 16) {
-        unsigned long x_block = (first_argument >> shift) & mask;
-        unsigned long y_block = (*second_argument >> shift) & mask;
-        unsigned long block_sum = (x_block ^ y_block ^ carry);
+    for (long shift = 0; shift < 64; shift += 16) {
+        unsigned long x_block = AND((first_argument >> shift), mask);
+        unsigned long y_block = AND((*second_argument >> shift), mask);
+        unsigned long block_sum = AND(AND(x_block, y_block), carry);
 
-        carry = ((x_block & y_block) | (carry & (x_block ^ y_block)));
-        sum |= (block_sum & mask) << shift;
+        carry = OR(AND(x_block, y_block), AND(carry, OR(x_block, y_block)));
+        sum = OR(AND(block_sum, mask) << shift, sum);
     }
 
-    if ((sum & 0x8000000000000000) != 0) {
-        sum |= ~0x7FFFFFFFFFFFFFFF;
+    if (AND(sum, 0x8000000000000000) != 0) {
+        sum = OR(NOT(0x7FFFFFFFFFFFFFFF), sum);
     }
 
     *second_argument = sum;
@@ -253,13 +253,13 @@ void ADDQU(
     unsigned char carry = CARRY_FLAG;
     unsigned long sum = 0;
 
-    for (unsigned char shift = 0; shift < 64; shift += 16) {
-        unsigned long x_block = (first_argument >> shift) & mask;
-        unsigned long y_block = (*second_argument >> shift) & mask;
-        unsigned long block_sum = (x_block ^ y_block ^ carry);
+    for (unsigned long shift = 0; shift < 64; shift += 16) {
+        unsigned long x_block = AND((first_argument >> shift), mask);
+        unsigned long y_block = AND((*second_argument >> shift), mask);
+        unsigned long block_sum = AND(AND(x_block, y_block), carry);
 
-        carry = ((x_block & y_block) | (carry & (x_block ^ y_block)));
-        sum |= (block_sum & mask) << shift;
+        carry = OR(AND(x_block, y_block), AND(carry, OR(x_block, y_block)));
+        sum = OR(AND(block_sum, mask) << shift, sum);
     }
 
     *second_argument = sum;
