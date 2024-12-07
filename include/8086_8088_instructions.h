@@ -39,6 +39,57 @@
 )(first_argument, second_argument)
 
 
+#define ADD(first_argument, second_argument) _Generic((first_argument),     \
+    char: _Generic((second_argument),                                       \
+        char*: ADDBS,                                                       \
+        unsigned char*: ADDBU,                                              \
+        default: ADDBU                                                      \
+    ),                                                                      \
+                                                                            \
+    unsigned char: _Generic((second_argument),                              \
+        char*: ADDBU,                                                       \
+        unsigned char*: ADDBU,                                              \
+        default: ADDBU                                                      \
+    ),                                                                      \
+                                                                            \
+    short: _Generic((second_argument),                                      \
+        short*: ADDWS,                                                      \
+        unsigned short*: ADDWU,                                             \
+        default: ADDWU                                                      \
+    ),                                                                      \
+                                                                            \
+    unsigned short: _Generic((second_argument),                             \
+        short*: ADDWU,                                                      \
+        unsigned short*: ADDWU,                                             \
+        default: ADDWU                                                      \
+    ),                                                                      \
+                                                                            \
+    int: _Generic((second_argument),                                        \
+        int*: ADDLS,                                                        \
+        unsigned int*: ADDLU,                                               \
+        default: ADDLU                                                      \
+    ),                                                                      \
+                                                                            \
+    unsigned int: _Generic((second_argument),                               \
+        int*: ADDLU,                                                        \
+        unsigned int*: ADDLU,                                               \
+        default: ADDLU                                                      \
+    ),                                                                      \
+                                                                            \
+    long: _Generic((second_argument),                                       \
+        long*: ADDQS,                                                       \
+        unsigned long*: ADDQU,                                              \
+        default: ADDQU                                                      \
+    ),                                                                      \
+                                                                            \
+    unsigned long: _Generic((second_argument),                              \
+        long*: ADDQU,                                                       \
+        unsigned long*: ADDQU,                                              \
+        default: ADDQU                                                      \
+    )                                                                       \
+)(first_argument, second_argument)
+
+
 
 /*
  * ADDB Function:
@@ -138,6 +189,57 @@ void ADDQU(unsigned long first_argument, unsigned long *second_argument);
         default: ADCQU                                                      \
     ),                                                                      \
     default: ADCQU                                                          \
+)(first_argument, second_argument)
+
+
+#define ADC(first_argument, second_argument) _Generic((first_argument),     \
+    char: _Generic((second_argument),                                       \
+        char*: ADCBS,                                                       \
+        unsigned char*: ADCBU,                                              \
+        default: ADCBU                                                      \
+    ),                                                                      \
+                                                                            \
+    unsigned char: _Generic((second_argument),                              \
+        char*: ADCBU,                                                       \
+        unsigned char*: ADCBU,                                              \
+        default: ADCBU                                                      \
+    ),                                                                      \
+                                                                            \
+    short: _Generic((second_argument),                                      \
+        short*: ADCWS,                                                      \
+        unsigned short*: ADCWU,                                             \
+        default: ADCWU                                                      \
+    ),                                                                      \
+                                                                            \
+    unsigned short: _Generic((second_argument),                             \
+        short*: ADCWU,                                                      \
+        unsigned short*: ADCWU,                                             \
+        default: ADCWU                                                      \
+    ),                                                                      \
+                                                                            \
+    int: _Generic((second_argument),                                        \
+        int*: ADCLS,                                                        \
+        unsigned int*: ADCLU,                                               \
+        default: ADCLU                                                      \
+    ),                                                                      \
+                                                                            \
+    unsigned int: _Generic((second_argument),                               \
+        int*: ADCLU,                                                        \
+        unsigned int*: ADCLU,                                               \
+        default: ADCLU                                                      \
+    ),                                                                      \
+                                                                            \
+    long: _Generic((second_argument),                                       \
+        long*: ADCQS,                                                       \
+        unsigned long*: ADCQU,                                              \
+        default: ADCQU                                                      \
+    ),                                                                      \
+                                                                            \
+    unsigned long: _Generic((second_argument),                              \
+        long*: ADCQU,                                                       \
+        unsigned long*: ADCQU,                                              \
+        default: ADCQU                                                      \
+    )                                                                       \
 )(first_argument, second_argument)
 
 
