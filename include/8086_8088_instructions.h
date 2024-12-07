@@ -4,40 +4,78 @@
 
 
 /*
- * ADD Function:
- * Performs a bitwise addition of two unsigned short values.
+ * ADDB Function:
+ * Performs a bitwise addition of two 8-bit signed values.
+ * This function simulates the addition of two 8-bit numbers, considering carry at each bit.
+ * 
+ * Parameters:
+ * - first_argument: The first operand (char, 8-bit).
+ * - second_argument: A pointer to the second operand (char, 8-bit).
+ * 
+ * Return:
+ * - The result of the addition is stored in the first_argument.
+ *   The first_argument is modified in place to hold the sum of the two operands.
+ */
+void ADDB(
+    char first_argument, 
+    char *second_argument
+);
+
+
+/*
+ * ADDW Function:
+ * Performs a bitwise addition of two 16-bit signed values.
  * This function simulates the addition of two 16-bit numbers, considering carry at each bit.
  * 
  * Parameters:
- * - first_argument: The first operand (unsigned short, 16-bit).
- * - second_argument: The second operand (unsigned short, 16-bit).
+ * - first_argument: The first operand (short, 16-bit).
+ * - second_argument: A pointer to the second operand (short, 16-bit).
  * 
  * Return:
- * - The result of the addition, stored in the first_argument.
+ * - The result of the addition is stored in the first_argument.
  *   The first_argument is modified in place to hold the sum of the two operands.
  */
-void ADD(
-    unsigned short *first_argument, 
-    unsigned short second_agument
+void ADDW(
+    short first_argument, 
+    short *second_argument
 );
 
 
 /*
  * ADDL Function:
- * Performs a bitwise addition of two unsigned int values.
+ * Performs a bitwise addition of two 32-bit signed values.
  * This function simulates the addition of two 32-bit numbers, considering carry at each bit.
  * 
  * Parameters:
- * - first_argument: The first operand (unsigned int, 32-bit).
- * - second_argument: The second operand (unsigned int, 32-bit).
+ * - first_argument: The first operand (int, 32-bit).
+ * - second_argument: A pointer to the second operand (int, 32-bit).
  * 
  * Return:
- * - The result of the addition, stored in the first_argument.
+ * - The result of the addition is stored in the first_argument.
  *   The first_argument is modified in place to hold the sum of the two operands.
  */
 void ADDL(
-    unsigned int *first_argument, 
-    unsigned int second_agument
+    int first_argument, 
+    int *second_argument
+);
+
+
+/*
+ * ADDQ Function:
+ * Performs a bitwise addition of two 64-bit signed values.
+ * This function simulates the addition of two 64-bit numbers, considering carry at each bit.
+ * 
+ * Parameters:
+ * - first_argument: The first operand (long, 64-bit).
+ * - second_argument: A pointer to the second operand (long, 64-bit).
+ * 
+ * Return:
+ * - The result of the addition is stored in the first_argument.
+ *   The first_argument is modified in place to hold the sum of the two operands.
+ */
+void ADDQ(
+    long first_argument, 
+    long *second_argument
 );
 
 
