@@ -12,22 +12,26 @@
  * - first_argument: The first operand (char, 8-bit).
  * - second_argument: A pointer to the second operand (char, 8-bit).
  */
-void ADDB(
-    char first_argument, 
-    char *second_argument
-) {
-    unsigned char sum = 0;
+void ADDB(char first_argument, char *second_argument) {
+    unsigned char mask = 0xF;
+    unsigned char carry = CARRY_FLAG;
+    char sum = 0;
 
-    for (unsigned int i = 0; i < 8; i++) {
-        unsigned char x_bit = AND((first_argument >> i), 1);
-        unsigned char y_bit = AND((*second_argument >> i), 1);
-        unsigned char sum_bit = XOR(XOR(x_bit, y_bit), CARRY_FLAG);
+    for (unsigned char shift = 0; shift < 8; shift += 4) {
+        unsigned char x_block = (first_argument >> shift) & mask;
+        unsigned char y_block = (*second_argument >> shift) & mask;
+        unsigned char block_sum = (x_block ^ y_block ^ carry);
 
-        CARRY_FLAG = OR(AND(x_bit, y_bit), AND(CARRY_FLAG, XOR(x_bit, y_bit)));
-        sum |= (sum_bit << i);
+        carry = ((x_block & y_block) | (carry & (x_block ^ y_block)));
+        sum |= (block_sum & mask) << shift;
+    }
+
+    if ((sum & 0x80) != 0) {
+        sum |= ~0x7F;
     }
 
     *second_argument = sum;
+    CARRY_FLAG = carry;
 }
 
 
@@ -40,22 +44,26 @@ void ADDB(
  * - first_argument: The first operand (short, 16-bit).
  * - second_argument: A pointer to the second operand (short, 16-bit).
  */
-void ADDW(
-    short first_argument, 
-    short *second_argument
-) {
-    unsigned short sum = 0;
+void ADDW(short first_argument, short *second_argument) {
+    unsigned short mask = 0xFF;
+    unsigned char carry = CARRY_FLAG;
+    short sum = 0;
 
-    for (unsigned int i = 0; i < 16; i++) {
-        unsigned short x_bit = AND((first_argument >> i), 1);
-        unsigned short y_bit = AND((*second_argument >> i), 1);
-        unsigned short sum_bit = XOR(XOR(x_bit, y_bit), CARRY_FLAG);
+    for (unsigned short shift = 0; shift < 16; shift += 8) {
+        unsigned short x_block = (first_argument >> shift) & mask;
+        unsigned short y_block = (*second_argument >> shift) & mask;
+        unsigned short block_sum = (x_block ^ y_block ^ carry);
 
-        CARRY_FLAG = OR(AND(x_bit, y_bit), AND(CARRY_FLAG, XOR(x_bit, y_bit)));
-        sum |= (sum_bit << i);
+        carry = ((x_block & y_block) | (carry & (x_block ^ y_block)));
+        sum |= (block_sum & mask) << shift;
+    }
+
+    if ((sum & 0x8000) != 0) {
+        sum |= ~0x7FFF;
     }
 
     *second_argument = sum;
+    CARRY_FLAG = carry;
 }
 
 
@@ -68,22 +76,26 @@ void ADDW(
  * - first_argument: The first operand (int, 32-bit).
  * - second_argument: A pointer to the second operand (int, 32-bit).
  */
-void ADDL(
-    int first_argument, 
-    int *second_argument
-) {
-    unsigned int sum = 0;
+void ADDL(int first_argument, int *second_argument) {
+    unsigned int mask = 0xFFFF;
+    unsigned char carry = CARRY_FLAG;
+    int sum = 0;
 
-    for (unsigned int i = 0; i < 32; i++) {
-        unsigned int x_bit = AND((first_argument >> i), 1);
-        unsigned int y_bit = AND((*second_argument >> i), 1);
-        unsigned int sum_bit = XOR(XOR(x_bit, y_bit), CARRY_FLAG);
+    for (unsigned char shift = 0; shift < 32; shift += 16) {
+        unsigned int x_block = (first_argument >> shift) & mask;
+        unsigned int y_block = (*second_argument >> shift) & mask;
+        unsigned int block_sum = (x_block ^ y_block ^ carry);
 
-        CARRY_FLAG = OR(AND(x_bit, y_bit), AND(CARRY_FLAG, XOR(x_bit, y_bit)));
-        sum |= (sum_bit << i);
+        carry = ((x_block & y_block) | (carry & (x_block ^ y_block)));
+        sum |= (block_sum & mask) << shift;
+    }
+
+    if ((sum & 0x80000000) != 0) {
+        sum |= ~0x7FFFFFFF;
     }
 
     *second_argument = sum;
+    CARRY_FLAG = carry;
 }
 
 
@@ -96,20 +108,24 @@ void ADDL(
  * - first_argument: The first operand (long, 64-bit).
  * - second_argument: A pointer to the second operand (long, 64-bit).
  */
-void ADDQ(
-    long first_argument, 
-    long *second_argument
-) {
-    unsigned long sum = 0;
+void ADDQ(long first_argument, long *second_argument) {
+    unsigned long mask = 0xFFFF;
+    unsigned char carry = CARRY_FLAG;
+    long sum = 0;
 
-    for (unsigned int i = 0; i < 64; i++) {
-        unsigned long x_bit = AND((first_argument >> i), 1);
-        unsigned long y_bit = AND((*second_argument >> i), 1);
-        unsigned long sum_bit = XOR(XOR(x_bit, y_bit), CARRY_FLAG);
+    for (unsigned char shift = 0; shift < 64; shift += 16) {
+        unsigned long x_block = (first_argument >> shift) & mask;
+        unsigned long y_block = (*second_argument >> shift) & mask;
+        unsigned long block_sum = (x_block ^ y_block ^ carry);
 
-        CARRY_FLAG = OR(AND(x_bit, y_bit), AND(CARRY_FLAG, XOR(x_bit, y_bit)));
-        sum |= (sum_bit << i);
+        carry = ((x_block & y_block) | (carry & (x_block ^ y_block)));
+        sum |= (block_sum & mask) << shift;
+    }
+
+    if ((sum & 0x8000000000000000) != 0) {
+        sum |= ~0x7FFFFFFFFFFFFFFF;
     }
 
     *second_argument = sum;
+    CARRY_FLAG = carry;
 }
